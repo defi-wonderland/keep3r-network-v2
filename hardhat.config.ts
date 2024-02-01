@@ -54,6 +54,10 @@ const config: HardhatUserConfig = {
           url: process.env.GOERLI_HTTPS_URL,
           accounts: [process.env.GOERLI_PRIVATE_KEY as string],
         },
+        sepolia: {
+          url: process.env.SEPOLIA_HTTPS_URL,
+          accounts: [process.env.SEPOLIA_PRIVATE_KEY as string],
+        },
         optimisticGoerli: {
           url: process.env.OP_GOERLI_HTTPS_URL,
           accounts: [process.env.OP_GOERLI_PRIVATE_KEY as string],

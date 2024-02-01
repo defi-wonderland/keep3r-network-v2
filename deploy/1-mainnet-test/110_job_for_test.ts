@@ -23,21 +23,21 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const LIQUIDITY = await hre.deployments.read('Keep3rForTestnet', 'liquidityAmount', jobForTest.address, pairManager.address);
   if (LIQUIDITY == 0) {
     // deployer needs to have KP3R and WETH balance
-    let klpBalance = await hre.deployments.read('UniV3PairManager', 'balanceOf', deployer);
+    let klpBalance = 0// = await hre.deployments.read('UniV3PairManager', 'balanceOf', deployer);
     if (klpBalance == 0) {
       const wethBalance = await hre.deployments.read('WETH', 'balanceOf', deployer);
-      if (wethBalance < toUnit(1)) {
+      if (wethBalance < toUnit(0.1)) {
         await hre.deployments.execute('WETH', { from: deployer, log: true, value: toUnit(0.1) }, 'deposit');
       }
       const kp3rBalance = await hre.deployments.read('KP3Rv1', 'balanceOf', deployer);
-      if (kp3rBalance < toUnit(100)) {
-        await hre.deployments.execute('KP3Rv1', { from: deployer, log: true }, 'mint(uint256)', toUnit(1));
+      if (kp3rBalance < toUnit(10)) {
+        await hre.deployments.execute('KP3Rv1', { from: deployer, log: true }, 'mint(uint256)', toUnit(10));
       }
 
-      await hre.deployments.execute('KP3Rv1', { from: deployer, log: true }, 'approve', pairManager.address, toUnit(100));
-      await hre.deployments.execute('WETH', { from: deployer, log: true }, 'approve', pairManager.address, toUnit(100));
+      // await hre.deployments.execute('KP3Rv1', { from: deployer, log: true }, 'approve', pairManager.address, toUnit(100));
+      // await hre.deployments.execute('WETH', { from: deployer, log: true }, 'approve', pairManager.address, toUnit(100));
 
-      const mintArguments: any[] = [toUnit(1), toUnit(0.1), 0, 0, deployer];
+      const mintArguments: any[] = [toUnit(0.1), toUnit(10), 0, 0, deployer];
       await hre.deployments.execute('UniV3PairManager', { from: deployer, log: true }, 'mint', ...mintArguments);
 
       klpBalance = await hre.deployments.read('UniV3PairManager', 'balanceOf', deployer);
@@ -65,7 +65,7 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
   await hre.deployments.execute('BasicJob', { from: deployer, log: true, gasLimit: 1e6 }, 'work');
 };
 
-deployFunction.dependencies = ['testnet-keep3r'];
+// deployFunction.dependencies = ['testnet-keep3r'];
 deployFunction.tags = ['job-for-test'];
 
 export default deployFunction;
