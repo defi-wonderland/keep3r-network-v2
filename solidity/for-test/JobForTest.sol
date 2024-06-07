@@ -1,34 +1,35 @@
 // SPDX-License-Identifier: MIT
 pragma solidity >=0.8.4 <0.9.0;
 
-import '../interfaces/IKeep3r.sol';
+import "../interfaces/IKeep3r.sol";
 
 contract JobForTest {
-  error InvalidKeeper();
-  address public keep3r;
-  uint256 public nonce;
+    error InvalidKeeper();
 
-  constructor(address _keep3r) {
-    keep3r = _keep3r;
-  }
+    address public keep3r;
+    uint256 public nonce;
 
-  function work() external {
-    if (!IKeep3r(keep3r).isKeeper(msg.sender)) revert InvalidKeeper();
-
-    for (uint256 i; i < 1000; i++) {
-      nonce++;
+    constructor(address _keep3r) {
+        keep3r = _keep3r;
     }
 
-    IKeep3r(keep3r).worked(msg.sender);
-  }
+    function work() external {
+        if (!IKeep3r(keep3r).isKeeper(msg.sender)) revert InvalidKeeper();
 
-  function workHard(uint256 _factor) external {
-    if (!IKeep3r(keep3r).isKeeper(msg.sender)) revert InvalidKeeper();
+        for (uint256 i; i < 1000; i++) {
+            nonce++;
+        }
 
-    for (uint256 i; i < 1000 * _factor; i++) {
-      nonce++;
+        IKeep3r(keep3r).worked(msg.sender);
     }
 
-    IKeep3r(keep3r).worked(msg.sender);
-  }
+    function workHard(uint256 _factor) external {
+        if (!IKeep3r(keep3r).isKeeper(msg.sender)) revert InvalidKeeper();
+
+        for (uint256 i; i < 1000 * _factor; i++) {
+            nonce++;
+        }
+
+        IKeep3r(keep3r).worked(msg.sender);
+    }
 }

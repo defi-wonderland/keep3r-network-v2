@@ -7,8 +7,8 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const keep3rEscrow = await hre.deployments.get('Keep3rEscrow');
   const keep3r = await hre.deployments.get('Keep3rSidechainForTestnet');
 
-  await hre.deployments.execute('KP3Rv1', { from: deployer, log: true }, 'approve', keep3rEscrow.address, toUnit(100));
-  await hre.deployments.execute('Keep3rEscrow', { from: deployer, log: true }, 'deposit', toUnit(100));
+  await hre.deployments.execute('KP3Rv1', { from: deployer, log: true }, 'approve', keep3rEscrow.address, toUnit(100_000));
+  await hre.deployments.execute('Keep3rEscrow', { from: deployer, log: true }, 'deposit', toUnit(100_000));
   await hre.deployments.execute('Keep3rEscrow', { from: deployer, log: true }, 'setMinter', keep3r.address);
 
   await hre.deployments.execute('Keep3rHelperSidechain', { from: deployer, log: true }, 'setOracle', wkLP, kp3rWethOracle);
