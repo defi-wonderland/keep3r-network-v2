@@ -40,8 +40,8 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
     );
   }
 
-  const is_keeper = await hre.deployments.read('Keep3rSidechainForTestnet', 'isKeeper', deployer);
-  if (!is_keeper) {
+  const isKeeper = await hre.deployments.read('Keep3rSidechainForTestnet', 'isKeeper', deployer);
+  if (!isKeeper) {
     // register deployer as keeper
     await hre.deployments.execute('Keep3rSidechainForTestnet', { from: deployer, log: true }, 'bond', kp3rV1, 0);
 
