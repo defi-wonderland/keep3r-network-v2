@@ -1,3 +1,4 @@
+import { WETH_ADDRESS } from '@e2e/common';
 import { toUnit } from '@utils/bn';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
@@ -40,7 +41,15 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
       await hre.deployments.execute('KP3Rv1', { from: deployer, log: true }, 'approve', pairManager.address, toUnit(100));
       await hre.deployments.execute('WETH', { from: deployer, log: true }, 'approve', pairManager.address, toUnit(100_000));
 
-      const mintArguments: any[] = [toUnit(0.1), toUnit(100_000), 0, 0, deployer];
+      let mintArguments: any[];
+
+      // Check if WETH is the first token in the pair
+      if (WETH_ADDRESS > kp3RForTest.address) {
+        mintArguments = [toUnit(0.1), toUnit(100_000), 0, 0, deployer];
+      } else {
+        mintArguments = [toUnit(100_000), toUnit(0.1), 0, 0, deployer];
+      }
+
       await hre.deployments.execute('UniV3PairManager', { from: deployer, log: true }, 'mint', ...mintArguments);
 
       klpBalance = await hre.deployments.read('UniV3PairManager', 'balanceOf', deployer);

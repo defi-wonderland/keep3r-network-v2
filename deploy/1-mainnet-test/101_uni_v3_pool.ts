@@ -19,10 +19,10 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
     abi: IUniswapV3Factory.abi,
   });
 
-  let deployedPool = await hre.deployments.read('UniV3Factory', 'getPool', weth, kp3RForTest.address, 10_000);
+  let deployedPool = await hre.deployments.read('UniV3Factory', 'getPool', kp3RForTest.address, weth, 10_000);
 
   if (deployedPool == '0x0000000000000000000000000000000000000000') {
-    await hre.deployments.execute('UniV3Factory', { from: deployer, log: true }, 'createPool', weth, kp3RForTest.address, 10_000);
+    await hre.deployments.execute('UniV3Factory', { from: deployer, log: true }, 'createPool', kp3RForTest.address, weth, 10_000);
     deployedPool = await hre.deployments.read('UniV3Factory', 'getPool', weth, kp3RForTest.address, 10_000);
 
     // initialize pool

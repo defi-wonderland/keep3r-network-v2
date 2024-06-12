@@ -79,4 +79,7 @@ export const addressRegistry = {
     31337: '0x1f98431c8ad98523631ae4a59f267346ea31f984',
     11155420: '0x8CE191193D15ea94e11d327b4c7ad8bbE520f6aF',
   },
+  router: {
+    11155111: '0x3bfa4769fb09eefc5a80d6e87c3b9c650f7ae48e',
+  },
 };

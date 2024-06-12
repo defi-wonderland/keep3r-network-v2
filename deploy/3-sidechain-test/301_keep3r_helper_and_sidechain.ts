@@ -1,3 +1,4 @@
+import { getChainId } from 'hardhat';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { toUnit } from '../../test/utils/bn';
@@ -7,8 +8,19 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const { deployer, governor, kp3rV1, kp3rWethOracle, wethUsdOracle, usdDecimals } = await hre.getNamedAccounts();
   const keep3rEscrow = await hre.deployments.get('Keep3rEscrow');
 
-  const mainnetKp3rV1 = addressRegistry.kp3rV1[11155111];
-  const mainnetWeth = addressRegistry.weth[11155111];
+  const chainId: number = Number(getChainId());
+
+  let mainnetKp3rV1: string;
+  let mainnetWeth: string;
+  let router: string;
+
+  if (chainId in addressRegistry.kp3rV1 && chainId in addressRegistry.weth && chainId in addressRegistry.router) {
+    mainnetKp3rV1 = addressRegistry.kp3rV1[chainId as keyof typeof addressRegistry.kp3rV1];
+    mainnetWeth = addressRegistry.weth[chainId as keyof typeof addressRegistry.weth];
+    router = addressRegistry.router[chainId as keyof typeof addressRegistry.router];
+  } else {
+    throw new Error('ChainId not found in addressRegistry');
+  }
 
   // swap ABI
   const swapRouterABI = [
@@ -16,7 +28,8 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
   ];
 
   // swap router address
-  const swapRouter = await hre.ethers.getContractAt(swapRouterABI, '0x3bFA4769FB09eefC5a80d6E87c3B9C650f7Ae48E');
+
+  const swapRouter = await hre.ethers.getContractAt(swapRouterABI, router);
 
   const exactInputSingleParams = {
     tokenIn: mainnetKp3rV1,
