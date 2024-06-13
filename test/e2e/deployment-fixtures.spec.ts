@@ -175,7 +175,7 @@ describe('@skip-on-coverage Fixture', () => {
 
     it('should deploy a workable job', async () => {
       await deployments.fixture(['job-for-test']);
-      const jobForTest = (await getContractFromFixture('BasicJob', 'JobForTest')) as Type.BasicJob;
+      const jobForTest = (await getContractFromFixture('JobForTest', 'JobForTest')) as Type.BasicJob;
 
       await evm.advanceTimeAndBlock(86400);
       await jobForTest.workHard(10);

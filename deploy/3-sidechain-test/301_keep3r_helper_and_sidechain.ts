@@ -1,4 +1,3 @@
-import { getChainId } from 'hardhat';
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
 import { toUnit } from '../../test/utils/bn';
@@ -8,7 +7,7 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
   const { deployer, governor, kp3rV1, kp3rWethOracle, wethUsdOracle, usdDecimals } = await hre.getNamedAccounts();
   const keep3rEscrow = await hre.deployments.get('Keep3rEscrow');
 
-  const chainId: number = Number(getChainId());
+  const chainId: number = Number(hre.getChainId());
 
   let mainnetKp3rV1: string;
   let mainnetWeth: string;
