@@ -1,7 +1,5 @@
 import { DeployFunction } from 'hardhat-deploy/types';
 import { HardhatRuntimeEnvironment } from 'hardhat/types';
-import { toUnit } from '../../test/utils/bn';
-import { addressRegistry } from '../../utils/constants';
 
 const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   const { deployer, governor, kp3rV1, weth, kp3rWethOracle, wethUsdOracle, usdDecimals } = await hre.getNamedAccounts();
