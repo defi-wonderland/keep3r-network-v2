@@ -11,9 +11,6 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
 
   const keep3rV2 = await hre.deployments.get('Keep3rSidechain');
   await verifyContract(hre, keep3rV2);
-
-  const kp3rV1 = await hre.deployments.get('KP3Rv1');
-  await verifyContract(hre, kp3rV1);
 };
 
 deployFunction.tags = ['verify-sidechain'];

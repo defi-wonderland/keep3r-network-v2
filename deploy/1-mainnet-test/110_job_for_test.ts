@@ -27,7 +27,6 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
   if (liquidity == 0) {
     // deployer needs to have KP3R and WETH balance
     let klpBalance = await hre.deployments.read('UniV3PairManager', 'balanceOf', deployer);
-
     if (klpBalance == 0) {
       const wethBalance = await hre.deployments.read('WETH', 'balanceOf', deployer);
       if (wethBalance < toUnit(0.1)) {
@@ -57,7 +56,6 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
 
     // add liquidity to job
     await hre.deployments.execute('UniV3PairManager', { from: deployer, log: true }, 'approve', keep3rV2.address, klpBalance);
-
     await hre.deployments.execute(
       'Keep3rForTestnet',
       { from: deployer, log: true },
@@ -79,6 +77,8 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
 
     await hre.deployments.execute('Keep3rForTestnet', { from: deployer, log: true }, 'activate', kp3RForTest.address);
   }
+
+  await hre.deployments.execute('JobForTest', { from: deployer, log: true, gasLimit: 1e6 }, 'work');
 };
 
 deployFunction.dependencies = ['testnet-keep3r'];

@@ -11,7 +11,7 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
     abi: IERC20.abi,
   });
 
-  const jobForTest = await hre.deployments.deploy('BasicJob', {
+  const jobForTest = await hre.deployments.deploy('JobRatedForTest', {
     from: deployer,
     contract: 'solidity/for-test/JobRatedForTest.sol:JobRatedForTest',
     args: [keep3rV2.address],
@@ -52,7 +52,7 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
     await hre.deployments.execute('Keep3rSidechainForTestnet', { from: deployer, log: true, gasLimit: 1e6 }, 'activate', kp3rV1);
   }
 
-  await hre.deployments.execute('BasicJob', { from: deployer, log: true, gasLimit: 1e6 }, 'work');
+  await hre.deployments.execute('JobRatedForTest', { from: deployer, log: true, gasLimit: 1e6 }, 'work');
 };
 
 deployFunction.dependencies = ['approve-testnet-liquidity'];
