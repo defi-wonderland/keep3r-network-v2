@@ -182,7 +182,7 @@ describe('@skip-on-coverage Fixture', () => {
     });
   });
 
-  describe.only('Keep3rSidechainForTestnet', () => {
+  describe('Keep3rSidechainForTestnet', () => {
     beforeEach(async () => {
       await deployments.fixture(['testnet-keep3r-sidechain']);
 
