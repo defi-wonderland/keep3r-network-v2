@@ -22,7 +22,7 @@ const deployFunction: DeployFunction = async function (hre: HardhatRuntimeEnviro
 
   const keep3rV2Args = [governor, keep3rHelper.address, kp3rV1, keep3rEscrow.address];
 
-  const keep3r = await hre.deployments.deploy('Keep3rSidechain', {
+  await hre.deployments.deploy('Keep3rSidechain', {
     contract: 'solidity/contracts/sidechain/Keep3rSidechain.sol:Keep3rSidechain',
     from: deployer,
     args: keep3rV2Args,

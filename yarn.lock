@@ -4285,9 +4285,9 @@ drbg.js@^1.0.1:
     create-hash "^1.1.2"
     create-hmac "^1.1.4"
 
-"ds-test@git+https://github.com/dapphub/ds-test.git":
+"ds-test@https://github.com/dapphub/ds-test":
   version "1.0.0"
-  resolved "git+https://github.com/dapphub/ds-test.git#cd98eff28324bfac652e63a239a60632a761790b"
+  resolved "https://github.com/dapphub/ds-test#e282159d5170298eb2455a6c05280ab5a73a4ef0"
 
 duplexer3@^0.1.4:
   version "0.1.4"
@@ -5520,9 +5520,9 @@ forever-agent@~0.6.1:
   resolved "https://registry.yarnpkg.com/forever-agent/-/forever-agent-0.6.1.tgz#fbc71f0c41adeb37f96c577ad1ed42d8fdacca91"
   integrity sha1-+8cfDEGt6zf5bFd60e1C2P2sypE=
 
-"forge-std@git+https://github.com/foundry-rs/forge-std.git":
-  version "1.2.0"
-  resolved "git+https://github.com/foundry-rs/forge-std.git#4a79aca83f8075f8b1b4fe9153945fef08375630"
+"forge-std@https://github.com/foundry-rs/forge-std":
+  version "1.8.2"
+  resolved "https://github.com/foundry-rs/forge-std#52715a217dc51d0de15877878ab8213f6cbbbab5"
 
 form-data@^2.2.0:
   version "2.5.1"
