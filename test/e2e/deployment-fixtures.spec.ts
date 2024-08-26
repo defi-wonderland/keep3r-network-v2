@@ -182,7 +182,7 @@ describe('@skip-on-coverage Fixture', () => {
     });
   });
 
-  describe('Keep3rSidechainForTestnet', () => {
+  describe.only('Keep3rSidechainForTestnet', () => {
     beforeEach(async () => {
       await deployments.fixture(['testnet-keep3r-sidechain']);
 
@@ -235,7 +235,7 @@ describe('@skip-on-coverage Fixture', () => {
 
       await evm.advanceTimeAndBlock(86400);
       await deployments.fixture(['job-rated-for-test'], { keepExistingDeployments: true });
-      const jobForTest = (await getContractFromFixture('BasicJob', 'JobRatedForTest')) as Type.BasicJob;
+      const jobForTest = (await getContractFromFixture('JobRatedForTest', 'JobRatedForTest')) as Type.BasicJob;
 
       await jobForTest.work();
     });
